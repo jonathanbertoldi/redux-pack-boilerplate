@@ -1,0 +1,26 @@
+import { isEmpty, isFunction, isString } from 'lodash';
+import invariant from 'invariant';
+
+import checkStore from './checkStore';
+import createReducer from '../reducers';
+
+export function createReducerFactory(store, isValid) {
+  return function injectReducer(key, reducer) {
+    if (!isValid) checkStore(store);
+
+    invariant(
+      isString(key) && !isEmpty(key) && isFunction(reducer),
+      '(app/utils...) injectReducer: Expected `reducer` to be a reducer function.',
+    );
+
+    if (
+      Reflect.key(store.injectedReducers, key) &&
+      store.injectedReducers[key] === reducer
+    ) {
+      return;
+    }
+
+    store.injectedReducers[key] = reducer; // eslint-disable-line no-param-reassign
+    store.replaceReducer(createReducer(store.injectedReducers));
+  };
+}
