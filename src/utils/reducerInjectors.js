@@ -4,7 +4,7 @@ import invariant from 'invariant';
 import checkStore from './checkStore';
 import createReducer from '../reducers';
 
-export function createReducerFactory(store, isValid) {
+export function injectReducerFactory(store, isValid) {
   return function injectReducer(key, reducer) {
     if (!isValid) checkStore(store);
 
@@ -22,5 +22,13 @@ export function createReducerFactory(store, isValid) {
 
     store.injectedReducers[key] = reducer; // eslint-disable-line no-param-reassign
     store.replaceReducer(createReducer(store.injectedReducers));
+  };
+}
+
+export default function getInjectors(store) {
+  checkStore(store);
+
+  return {
+    injectReducer: injectReducerFactory(store, true),
   };
 }
