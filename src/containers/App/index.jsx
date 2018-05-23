@@ -1,11 +1,14 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Home from '../HomePage';
+import PrivateRoute from '../../components/PrivateRoute';
+import LoginPage from '../LoginPage';
+import HomePage from '../HomePage';
 
 const App = () => (
   <Switch>
-    <Route path="/" component={Home} />
+    <Route path="/login" component={LoginPage} />
+    <PrivateRoute path="/home" component={HomePage} />
   </Switch>
 );
 
