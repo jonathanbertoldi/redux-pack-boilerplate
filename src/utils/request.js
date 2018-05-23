@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API = '';
+const API = 'https://json-server-jwt.herokuapp.com';
 
 export const get = (url) =>
   request(url, {
@@ -24,12 +24,24 @@ export const remove = (url, id) =>
   request(url, {
     method: 'DELETE',
   });
+
 // eslint-disable-next-line
-export const request = (url, { contentType='application/json', ...customOptions }) => {
+export const request = (
+  url,
+  {
+    contentType = 'application/json',
+    authorization = localStorage.getItem('token'),
+    ...customOptions
+  },
+) => {
   const headers = {};
 
   if (contentType) {
     headers['Content-type'] = contentType;
+  }
+
+  if (authorization) {
+    headers['Authorization'] = authorization; // eslint-disable-line
   }
 
   const options = {
