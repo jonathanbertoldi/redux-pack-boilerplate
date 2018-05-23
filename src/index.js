@@ -6,7 +6,7 @@ import createHistory from 'history/createBrowserHistory';
 
 import { configureStore } from './store';
 
-import App from './App';
+import App from './containers/App';
 
 const initialState = {};
 const history = createHistory();
