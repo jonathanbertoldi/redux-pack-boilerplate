@@ -24,7 +24,6 @@ export const remove = (url, id) =>
   request(url, {
     method: 'DELETE',
   });
-
 // eslint-disable-next-line
 export const request = (url, { contentType='application/json', ...customOptions }) => {
   const headers = {};
