@@ -2,36 +2,34 @@ import axios from 'axios';
 
 const API = '';
 
-export const get = (url) => {
-  return request(url, {
+export const get = (url) =>
+  request(url, {
     method: 'GET',
-  })
-};
+  });
 
-export const post = (url, data) => {
-  return request(url, {
+export const post = (url, data) =>
+  request(url, {
     method: 'POST',
     data,
-  })
-};
+  });
 
-export const patch = (url, data) => {
-  return request(url, {
+export const patch = (url, data) =>
+  request(url, {
     method: 'PATCH',
     data,
-  })
-};
+  });
 
-export const remove = (url, id) => {
-  return request(url, {
+// eslint-disable-next-line
+export const remove = (url, id) =>
+  request(url, {
     method: 'DELETE',
-  })
-};
+  });
 
-export const request = (url, {contentType='application/json', ...customOptions}) => {
+// eslint-disable-next-line
+export const request = (url, { contentType='application/json', ...customOptions }) => {
   const headers = {};
 
-  if(contentType) {
+  if (contentType) {
     headers['Content-type'] = contentType;
   }
 
@@ -40,5 +38,9 @@ export const request = (url, {contentType='application/json', ...customOptions})
     headers,
   };
 
-  return axios(`${API}/${url}`, options).then((response) => response.data).catch((error) => { error.message });
+  return axios(`${API}/${url}`, options)
+    .then((response) => response.data)
+    .catch((error) => {
+      throw new Error(error.message);
+    });
 };
