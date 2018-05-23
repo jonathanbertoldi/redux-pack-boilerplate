@@ -1,10 +1,10 @@
 import { createStore, applyMiddleware, compose } from 'redux';
+import { middleware as reduxPackMiddleware } from 'redux-pack';
 import { routerMiddleware } from 'react-router-redux';
-import { fromJS } from 'immutable';
 import { createRootReducer } from '../reducers';
 
 export function configureStore(initialState = {}, history) {
-  const middlewares = [routerMiddleware(history)];
+  const middlewares = [reduxPackMiddleware, routerMiddleware(history)];
 
   const enhancers = [applyMiddleware(...middlewares)];
 
@@ -21,7 +21,7 @@ export function configureStore(initialState = {}, history) {
 
   const store = createStore(
     createRootReducer(),
-    fromJS(initialState),
+    initialState,
     composeEnhancers(...enhancers),
   );
 
