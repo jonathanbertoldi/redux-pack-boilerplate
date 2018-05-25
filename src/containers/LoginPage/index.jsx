@@ -11,6 +11,7 @@ class Login extends Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     global: PropTypes.object.isRequired,
+    location: PropTypes.object,
   };
 
   state = {
@@ -31,8 +32,11 @@ class Login extends Component {
 
   render() {
     const { redirectToReferrer } = this.state;
+    const { from } = this.props.location.state || {
+      from: { pathname: '/home' },
+    };
 
-    if (redirectToReferrer) return <Redirect to="/home" />;
+    if (redirectToReferrer) return <Redirect to={from} />;
 
     return (
       <div>

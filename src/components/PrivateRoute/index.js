@@ -11,31 +11,19 @@ const PrivateRoute = ({ component: Component, global, ...rest }) => (
   <Route
     {...rest}
     render={(props) =>
-      isEmpty(global.user) ? <Redirect to="/login" /> : <Component {...props} />
+      isEmpty(global.user) ? (
+        <Redirect
+          to={{
+            pathname: '/login',
+            state: { from: props.location },
+          }}
+        />
+      ) : (
+        <Component {...props} />
+      )
     }
   />
 );
-
-// class PrivateRoute extends React.Component {
-//   render() {
-//     const { component: Component, global, ...rest } = this.props;
-
-//     console.log(global);
-
-//     return (
-//       <Route
-//         {...rest}
-//         render={(props) =>
-//           isEmpty(global.user) ? (
-//             <Redirect to="/login" />
-//           ) : (
-//             <Component {...props} />
-//           )
-//         }
-//       />
-//     );
-//   }
-// }
 
 PrivateRoute.propTypes = {
   component: PropTypes.oneOfType([
