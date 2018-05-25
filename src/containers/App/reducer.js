@@ -1,18 +1,19 @@
 import { handle } from 'redux-pack';
 
-import { LOGIN } from './constants';
+import { POST_LOGIN } from './constants';
+import { getLocalStorageUser } from '../../utils/userUtils';
 
 const initialState = {
   loading: false,
   error: null,
-  user: null,
+  user: getLocalStorageUser(),
 };
 
 function appReducer(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case LOGIN:
+    case POST_LOGIN:
       return handle(state, action, {
         start: (prevState) => ({
           ...prevState,

@@ -5,7 +5,7 @@ import { compose, bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
 import { isEmpty } from 'lodash';
 
-import { login } from '../App/actions';
+import { postLogin } from '../App/actions';
 
 class Login extends Component {
   static propTypes = {
@@ -19,9 +19,7 @@ class Login extends Component {
   };
 
   handleLogin = async () => {
-    const { login: logIn } = this.props.actions;
-
-    await logIn({
+    await this.props.actions.postLogin({
       email: 'user@example.com',
       password: '1234',
     });
@@ -49,7 +47,7 @@ class Login extends Component {
 const mapStateToProps = ({ global }) => ({ global });
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators({ login }, dispatch),
+  actions: bindActionCreators({ postLogin }, dispatch),
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
