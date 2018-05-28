@@ -25,7 +25,7 @@ class Login extends Component {
     });
 
     if (!isEmpty(this.props.global.user))
-      this.setState({ redirectToReferrer: true });
+      await this.setState({ redirectToReferrer: true });
   };
 
   render() {

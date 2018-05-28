@@ -25,3 +25,11 @@ export function setLocalStorageUser({ email, token }) {
   localStorage.setItem('email', email);
   localStorage.setItem('token', token);
 }
+
+/**
+ * Removes logged user data from localStorage
+ */
+export function removeLocalStorageUser() {
+  localStorage.removeItem('email');
+  localStorage.removeItem('token');
+}
