@@ -1,6 +1,6 @@
 import { handle } from 'redux-pack';
 
-import { POST_LOGIN, LOGOUT } from './constants';
+import { POST_LOGIN, LOGOUT, VERIFY_LOGIN } from './constants';
 import { getLocalStorageUser } from '../../utils/userUtils';
 
 const initialState = {
@@ -32,6 +32,23 @@ function appReducer(state = initialState, action) {
         success: (prevState) => ({
           ...prevState,
           user: payload,
+        }),
+      });
+    case VERIFY_LOGIN:
+      return handle(state, action, {
+        start: (prevState) => ({
+          ...prevState,
+          loading: true,
+          error: null,
+        }),
+        finish: (prevState) => ({
+          ...prevState,
+          loading: false,
+        }),
+        failure: (prevState) => ({
+          ...prevState,
+          error: payload,
+          user: null,
         }),
       });
     case LOGOUT:

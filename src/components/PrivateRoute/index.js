@@ -5,7 +5,9 @@ import { compose } from 'redux';
 import { Route, Redirect } from 'react-router-dom';
 import { isEmpty } from 'lodash';
 
-const PrivateRoute = ({ component: Component, global, ...rest }) => (
+import Layout from '../Layout';
+
+const PrivateRoute = ({ component, global, ...rest }) => (
   <Route
     {...rest}
     render={(props) =>
@@ -17,7 +19,7 @@ const PrivateRoute = ({ component: Component, global, ...rest }) => (
           }}
         />
       ) : (
-        <Component {...props} />
+        <Layout component={component} {...props} />
       )
     }
   />

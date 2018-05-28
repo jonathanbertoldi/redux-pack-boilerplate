@@ -5,31 +5,17 @@ import { compose, bindActionCreators } from 'redux';
 
 import { logout } from '../App/actions';
 
-import { removeLocalStorageUser } from '../../utils/userUtils';
-
 class Home extends Component {
   static propTypes = {
-    actions: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
   };
 
-  handleLogout = () => {
-    removeLocalStorageUser();
-    this.props.actions.logout();
-  };
+  state = {};
 
   render() {
     const { user } = this.props;
 
-    return (
-      <div>
-        <p>Home</p>
-        <p>Bem vindo {user.email}</p>
-        <p>
-          <button onClick={this.handleLogout}>Logout</button>
-        </p>
-      </div>
-    );
+    return <div>Bem vindo {user.email}</div>;
   }
 }
 
