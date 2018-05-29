@@ -6,31 +6,42 @@ import '../style.less';
 const { TextArea } = Input;
 const FormItem = Form.Item;
 
-function hasErrors(fieldsError) {
-  return Object.keys(fieldsError).some((field) => fieldsError[field]);
-};
 class AddPost extends Component {
   static propTypes = {
     form: PropTypes.object.isRequired,
   };
   state = {};
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        console.log('received  values of form: ', values);
+      }
+    });
+  };
+
+  handleRulesgetFieldDecorator = () => {
+    const rules = [{ required: true, message: 'Por favor, preencha o campo.' }];
+    return rules;
+  };
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    console.log(this.props);
+    const validateField = [
+      { required: true, message: 'Por favor, preencha o campo.' },
+    ];
+
     return (
       <div className="new-post">
-        <Form>
+        <Form onSubmit={this.handleSubmit}>
           <FormItem>
             {getFieldDecorator('title', {
-              rules: [{ required: true, message: 'Please input your title!' }],
+              rules: validateField,
             })(<Input placeholder="Título da postagem" />)}
           </FormItem>
           <FormItem>
             {getFieldDecorator('content', {
-              rules: [
-                { required: true, message: 'Please input your content!' },
-              ],
+              rules: validateField,
             })(
               <TextArea
                 className="content-post"
@@ -40,7 +51,9 @@ class AddPost extends Component {
           </FormItem>
           <div className="btn-add">
             <FormItem>
-              <Button type="primary">Publicar</Button>
+              <Button onClick={this.handleSubmit} type="primary">
+                Publicar
+              </Button>
             </FormItem>
           </div>
         </Form>

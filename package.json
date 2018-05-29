@@ -80,12 +80,8 @@
     "test": "node scripts/test.js --env=jsdom"
   },
   "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,mjs}"
-    ],
-    "setupFiles": [
-      "<rootDir>/config/polyfills.js"
-    ],
+    "collectCoverageFrom": ["src/**/*.{js,jsx,mjs}"],
+    "setupFiles": ["<rootDir>/config/polyfills.js"],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
       "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}"
@@ -95,11 +91,10 @@
     "transform": {
       "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
       "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-      "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+      "^(?!.*\\.(js|jsx|mjs|css|json)$)":
+        "<rootDir>/config/jest/fileTransform.js"
     },
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
-    ],
+    "transformIgnorePatterns": ["[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"],
     "moduleNameMapper": {
       "^react-native$": "react-native-web"
     },
@@ -114,27 +109,18 @@
     ]
   },
   "babel": {
-    "presets": [
-      "react-app"
-    ]
+    "presets": ["react-app"]
   },
   "eslintConfig": {
     "parser": "babel-eslint",
-    "extends": [
-      "airbnb",
-      "prettier"
-    ],
+    "extends": ["airbnb", "prettier"],
     "env": {
       "browser": true,
       "node": true,
       "jest": true,
       "es6": true
     },
-    "plugins": [
-      "react",
-      "jsx-a11y",
-      "prettier"
-    ],
+    "plugins": ["react", "jsx-a11y", "prettier"],
     "parserOptions": {
       "ecmaVersion": 6,
       "sourceType": "module",
@@ -143,19 +129,11 @@
       }
     },
     "rules": {
-      "arrow-parens": [
-        "error",
-        "always"
-      ],
-      "arrow-body-style": [
-        2,
-        "as-needed"
-      ],
+      "linebreak-style": 0,
+      "arrow-parens": ["error", "always"],
+      "arrow-body-style": [2, "as-needed"],
       "class-methods-use-this": 0,
-      "comma-dangle": [
-        2,
-        "always-multiline"
-      ],
+      "comma-dangle": [2, "always-multiline"],
       "import/imports-first": 0,
       "import/newline-after-import": 0,
       "import/no-dynamic-require": 0,
@@ -171,6 +149,13 @@
       "jsx-a11y/mouse-events-have-key-events": 2,
       "jsx-a11y/role-has-required-aria-props": 2,
       "jsx-a11y/role-supports-aria-props": 2,
+      "jsx-a11y/anchor-is-valid": [
+        "error",
+        {
+          "components": ["Link"],
+          "specialLink": ["to"]
+        }
+      ],
       "max-len": 0,
       "newline-per-chained-call": 0,
       "no-confusing-arrow": 0,
@@ -178,10 +163,7 @@
       "no-use-before-define": 0,
       "prefer-template": 2,
       "react/forbid-prop-types": 0,
-      "react/jsx-first-prop-new-line": [
-        2,
-        "multiline"
-      ],
+      "react/jsx-first-prop-new-line": [2, "multiline"],
       "react/jsx-filename-extension": 0,
       "react/jsx-no-target-blank": 0,
       "react/require-default-props": 0,

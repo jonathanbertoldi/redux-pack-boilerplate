@@ -2,31 +2,43 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
+import { isEmpty } from 'lodash';
 
-import { login } from '../App/actions';
+import { postLogin } from '../App/actions';
 
 class Login extends Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
+    global: PropTypes.object.isRequired,
+    location: PropTypes.object,
   };
 
-  state = {};
+  state = {
+    redirectToReferrer: false,
+  };
+
+  handleLogin = async () => {
+    await this.props.actions.postLogin({
+      email: 'user@example.com',
+      password: '1234',
+    });
+
+    if (!isEmpty(this.props.global.user))
+      await this.setState({ redirectToReferrer: true });
+  };
 
   render() {
-    const { login: logIn } = this.props.actions;
+    const { redirectToReferrer } = this.state;
+    const { from } = this.props.location.state || {
+      from: { pathname: '/home' },
+    };
+
+    if (redirectToReferrer) return <Redirect to={from} />;
 
     return (
       <div>
-        <button
-          onClick={() =>
-            logIn({
-              email: 'user@example.com',
-              password: '1234',
-            })
-          }
-        >
-          Login
-        </button>
+        <button onClick={this.handleLogin}>Login</button>
       </div>
     );
   }
@@ -35,7 +47,7 @@ class Login extends Component {
 const mapStateToProps = ({ global }) => ({ global });
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators({ login }, dispatch),
+  actions: bindActionCreators({ postLogin }, dispatch),
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

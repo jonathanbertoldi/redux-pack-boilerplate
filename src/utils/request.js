@@ -49,9 +49,5 @@ export const request = (
     headers,
   };
 
-  return axios(`${API}/${url}`, options)
-    .then((response) => response.data)
-    .catch((error) => {
-      throw new Error(error.message);
-    });
+  return axios(`${API}/${url}`, options).then((response) => response.data);
 };
