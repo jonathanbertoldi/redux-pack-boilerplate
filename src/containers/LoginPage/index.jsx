@@ -8,15 +8,12 @@ import { login } from '../App/actions';
 class Login extends Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
-    global: PropTypes.object.isRequired,
   };
 
   state = {};
 
   render() {
     const { login: logIn } = this.props.actions;
-
-    console.log(this.props.global);
 
     return (
       <div>
