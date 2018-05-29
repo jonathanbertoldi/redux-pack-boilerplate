@@ -2,7 +2,7 @@ import { POST_LOGIN, LOGOUT, VERIFY_LOGIN } from './constants';
 import { post, get } from '../../utils/request';
 import {
   setLocalStorageUser,
-  // removeLocalStorageUser,
+  removeLocalStorageUser,
 } from '../../utils/userUtils';
 
 /**
@@ -30,9 +30,9 @@ export function verifyToken() {
   return {
     type: VERIFY_LOGIN,
     promise: get('verify'),
-    // meta: {
-    //   onFailure: () => removeLocalStorageUser(),
-    // },
+    meta: {
+      onFailure: () => removeLocalStorageUser(),
+    },
   };
 }
 
