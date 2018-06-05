@@ -87,16 +87,6 @@ class Login extends Component {
               Logar
             </Button>
           </FormItem>
-          <FormItem>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-              onClick={this.handleLogin}
-            >
-              Cadastre-se
-            </Button>
-          </FormItem>
         </Form>
       </div>
     );
