@@ -2,14 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
-import { Link } from 'react-router-dom';
 import { isEmpty } from 'lodash';
+import { Layout } from 'antd';
 
+import SideMenu from '../SideMenu';
+import HeaderMenu from '../HeaderMenu';
 import { logout, verifyToken } from '../../containers/App/actions';
-
 import { removeLocalStorageUser } from '../../utils/userUtils';
+import './style.less';
 
-class Layout extends React.Component {
+const { Content } = Layout;
+
+class DefaultLayout extends React.Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
@@ -34,13 +38,13 @@ class Layout extends React.Component {
     const { component: Component, ...rest } = this.props;
     return (
       <div>
-        <nav>
-          <Link to="/home">Home</Link>&nbsp;
-          <Link to="/contact">Contact</Link>&nbsp;
-          <Link to="/about">About</Link>
-          <button onClick={this.handleLogout}>Sair</button>
-        </nav>
-        <Component {...rest} />
+        <Layout className="default-layout">
+          <SideMenu />
+          <Content>
+            <HeaderMenu />
+            <Component {...rest} />
+          </Content>
+        </Layout>
       </div>
     );
   }
@@ -54,4 +58,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-export default compose(withConnect)(Layout);
+export default compose(withConnect)(DefaultLayout);

@@ -11,10 +11,11 @@ import AboutPage from '../AboutPage';
 const App = () => (
   <Switch>
     <Route path="/login" component={LoginPage} />
-    <Route path="/posts" component={PostPage} />
     <PrivateRoute path="/home" component={HomePage} />
     <PrivateRoute path="/contact" component={ContactPage} />
     <PrivateRoute path="/about" component={AboutPage} />
+    <PrivateRoute path="/about" component={AboutPage} />
+    <PrivateRoute path="/posts" component={PostPage} />
     <Redirect from="/" to="/home" />
   </Switch>
 );

@@ -19,36 +19,51 @@ import {
 class PostPage extends Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
-    posts: PropTypes.object,
-  };
-
-  state = {
-    title: 'oi',
-    content: 'Esse é o meu primeiro post',
-    likes: 11,
+    posts: PropTypes.array,
   };
 
   componentDidMount() {
     this.props.actions.loadPosts();
   }
 
+  handleLike = async (post) => {
+    const patchedPost = {
+      ...post,
+      likes: post.likes + 1,
+    };
+    // this.setState({
+    //   likes: this.state.likes + 1,
+    // });
+    await this.props.actions.likePost(patchedPost);
+    this.props.actions.loadPosts();
+  };
+
   render() {
     const { posts } = this.props;
-    console.log(posts);
-
     return (
       <div className="card-post">
         <Card>
           <FormAddPost />
         </Card>
-        {/* {posts.items.map((post) => <span>{post}</span>)} */}
-        <Card title={this.state.title} type="inner" className="publications">
-          <p>{this.state.content}</p>
-          <div className="content-likes">
-            <button className="btn-like">Curtir</button>
-            <span className="likes-quantity">{this.state.likes} curtidas</span>
-          </div>
-        </Card>
+        {posts.map((item) => (
+          <Card
+            key={item.id}
+            title={item.title}
+            type="inner"
+            className="publications"
+          >
+            <p>{item.content}</p>
+            <div className="content-likes">
+              <button
+                className="btn-like"
+                onClick={() => this.handleLike(item)}
+              >
+                Curtir
+              </button>
+              <span className="likes-quantity">{item.likes} curtidas</span>
+            </div>
+          </Card>
+        ))}
       </div>
     );
   }

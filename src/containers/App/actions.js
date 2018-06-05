@@ -1,3 +1,4 @@
+import { notification } from 'antd';
 import { POST_LOGIN, LOGOUT, VERIFY_LOGIN } from './constants';
 import { post, get } from '../../utils/request';
 import {
@@ -12,12 +13,20 @@ import {
  * @param {string} data.email The user login email
  * @param {string} data.password The user hashed password
  */
+const openNotificationWithIcon = (type) => {
+  notification[type]({
+    message: 'Falha ao logar',
+    description: 'Email ou senha estão incorretos.',
+  });
+};
+
 export function postLogin(data) {
   return {
     type: POST_LOGIN,
     promise: post('login', data),
     meta: {
       onSuccess: (response) => setLocalStorageUser(response),
+      onFailure: () => openNotificationWithIcon('error'),
     },
   };
 }
