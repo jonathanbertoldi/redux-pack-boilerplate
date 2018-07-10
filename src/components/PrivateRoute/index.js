@@ -3,15 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Route, Redirect } from 'react-router-dom';
+import { createStructuredSelector } from 'reselect';
 import { isEmpty } from 'lodash';
 
 import Layout from '../Layout';
 
-const PrivateRoute = ({ component, global, ...rest }) => (
+import { makeSelectUser } from '../../containers/App/selectors';
+
+const PrivateRoute = ({ component, user, ...rest }) => (
   <Route
     {...rest}
     render={(props) =>
-      isEmpty(global.user) ? (
+      isEmpty(user) ? (
         <Redirect
           to={{
             pathname: '/login',
@@ -30,11 +33,13 @@ PrivateRoute.propTypes = {
     PropTypes.instanceOf(React.Component),
     PropTypes.func,
   ]).isRequired,
-  global: PropTypes.object.isRequired,
+  user: PropTypes.object,
   location: PropTypes.object,
 };
 
-const mapStateToProps = ({ global }) => ({ global });
+const mapStateToProps = createStructuredSelector({
+  user: makeSelectUser(),
+});
 
 const withConnect = connect(mapStateToProps);
 

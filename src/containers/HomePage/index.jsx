@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
 import { logout } from '../App/actions';
+
+import { makeSelectUser } from '../App/selectors';
 
 class Home extends Component {
   static propTypes = {
@@ -19,7 +22,9 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = ({ global }) => ({ user: global.user });
+const mapStateToProps = createStructuredSelector({
+  user: makeSelectUser(),
+});
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({ logout }, dispatch),

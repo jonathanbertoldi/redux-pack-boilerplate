@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
+import { createStructuredSelector } from 'reselect';
 import { Redirect } from 'react-router-dom';
 import { isEmpty } from 'lodash';
 
 import { postLogin } from '../App/actions';
 
+import { makeSelectUser } from '../App/selectors';
+
 class Login extends Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
-    global: PropTypes.object.isRequired,
+    user: PropTypes.object,
     location: PropTypes.object,
   };
 
@@ -24,7 +27,7 @@ class Login extends Component {
       password: '1234',
     });
 
-    if (!isEmpty(this.props.global.user))
+    if (!isEmpty(this.props.user))
       await this.setState({ redirectToReferrer: true });
   };
 
@@ -44,7 +47,9 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = ({ global }) => ({ global });
+const mapStateToProps = createStructuredSelector({
+  user: makeSelectUser(),
+});
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({ postLogin }, dispatch),
